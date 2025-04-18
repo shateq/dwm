@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=dwm
+Comment=patched suckless dwm
+Exec=/usr/local/bin/dwm
+Icon=dwm.png
+Type=XSession
