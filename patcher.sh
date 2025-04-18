@@ -3,15 +3,20 @@
 apply() {
     for file in $(sortbysize); do
         echo "this: $file"
-        patch <"patches/$file"
-        
+
         if [ -n "$(find . -iname "*.rej")" ]; then
-            echo "FOUND REJECTS, BREAKING THE LOOP"
+            echo "A .rej file found, you might want to resolve the conflicts.\nPrinting to stdout\n\n"
+            < ./*.rej
+
             break
-        else
-            continue
         fi
 
+        patch <"patches/$file"
+        
+        sidedir=./patches/applied
+        mkdir -p $sidedir
+        mv $file $sidedir
+        
         break
     done
 }
@@ -40,6 +45,7 @@ sortbysize() {
 
 case $1 in
     a)  echo "applying until .rej file detected"
+        apply
         ;;
     c)  echo "cleanup ran"
         cleanup
