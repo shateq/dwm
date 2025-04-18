@@ -5,17 +5,17 @@ apply() {
         echo "this: $file"
 
         if [ -n "$(find . -iname "*.rej")" ]; then
-            echo "A .rej file found, you might want to resolve the conflicts.\nPrinting to stdout\n\n"
-            < ./*.rej
+            echo -e "A .rej file found, you might want to resolve the conflicts.\nPrinting to stdout\n\n"
+            cat *.rej
 
             break
         fi
 
         patch <"patches/$file"
         
-        sidedir=./patches/applied
+        sidedir=./patches/.applied
         mkdir -p $sidedir
-        mv $file $sidedir
+        mv "./patches/$file" $sidedir
         
         break
     done
@@ -53,9 +53,6 @@ case $1 in
     d)  echo "curl ran"
         download
         ;;
-    *)  echo "patcher.sh 
-    c - cleanup 
-    d - download patches from 'Patches' file
-    a - apply './patches' sorted by file binary size"
+    *)  echo -e "patcher.sh\n  c - cleanup\n  d - download patches from 'Patches' file\n  a - apply './patches' sorted by file binary size"
         ;;
 esac
