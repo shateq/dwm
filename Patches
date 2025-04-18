@@ -8,5 +8,5 @@ https://dwm.suckless.org/patches/hide_vacant_tags/dwm-hide_vacant_tags-6.4.diff
 https://dwm.suckless.org/patches/stacker/dwm-stacker-6.2.diff
 https://dwm.suckless.org/patches/statuscmd/dwm-statuscmd-20241009-8933ebc.diff
 https://dwm.suckless.org/patches/warp/dwm-warp-6.4.diff
-https://dwm.suckless.org/patches/cfacts/dwm-cfacts-20200913-61bb8b2.diff
-https://dwm.suckless.org/patches/vanitygaps/dwm-vanitygaps-20200610-f09418b.diff
+https://raw.githubusercontent.com/bakkeby/patches/refs/heads/master/dwm/dwm-spotifyworkaround-6.3.diff
+https://dwm.suckless.org/patches/vanitygaps/dwm-cfacts-vanitygaps-6.4_combo.diff

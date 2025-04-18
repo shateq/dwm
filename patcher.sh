@@ -2,12 +2,11 @@
 
 apply() {
     for file in $(sortbysize); do
-        echo "this: $file"
+        echo -e "\n>>= THIS: $file"
 
         if [ -n "$(find . -iname "*.rej")" ]; then
             echo -e "A .rej file found, you might want to resolve the conflicts.\nPrinting to stdout\n\n"
             cat *.rej
-
             break
         fi
 
@@ -16,9 +15,21 @@ apply() {
         sidedir=./patches/.applied
         mkdir -p $sidedir
         mv "./patches/$file" $sidedir
-        
-        break
+        echo -e ">>= File $file moved to '.applied' directory, POTENTIAL rejects are printed below.\n"
+        #debug with that
+        #break
     done
+
+    
+    if [ -n "$(find . -iname "*.rej")" ]; then
+        echo -e "A .rej file found, you might want to resolve the conflicts.\nPrinting to stdout\n\n"
+        cat *.rej
+    fi
+
+    if [ -z "$(find -prune -type f -path './patches/*' -iname "*.diff")" ]; then
+        echo "Directory 'patches/' is empty, use 'patcher.sh d' to download patch files."
+        exit 0
+    fi
 }
 
 cleanup() {
