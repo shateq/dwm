@@ -26,7 +26,7 @@ apply() {
         cat *.rej
     fi
 
-    if [ -z "$(find -prune -type f -path './patches/*' -iname "*.diff")" ]; then
+    if [ -n "$(find -prune -type f -path './patches/*' -iname "*.diff")" ]; then
         echo "Directory 'patches/' is empty, use 'patcher.sh d' to download patch files."
         exit 0
     fi
