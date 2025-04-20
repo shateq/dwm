@@ -1,6 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 #define TERMINAL "alacritty"
 #define BROWSER "librewolf"
+#define STATUSBAR "dwmblocks"
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
@@ -87,13 +88,14 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
-#define STATUSBAR "dwmblocks"
-
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *roficmd[]  = { "rofi", "-show", "drun", NULL };
 static const char *termcmd[]  = { TERMINAL, "--working-directory", "./", NULL };
+
+static const char *signalvolume[] = { "pkill", "-RTMIN+5", STATUSBAR }
+static const char *signalplaying[] = { "pkill", "-RTMIN+6", STATUSBAR }
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -137,6 +139,12 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_BackSpace,      quit,           {0} },
+    { 0,    XF86_AudioLowerVolume,  spawn,  {.v = signalvolume } },
+    { 0,    XF86_AudioRaiseVolume,  spawn,  {.v = signalvolume } },
+    { 0,    XF86_AudioMute,         spawn,  {.v = signalvolume } },
+    { 0,    XF86_AudioPlay,         spawn,  {.v = signalplaying } },
+    { 0,    XF86_AudioPause,        spawn,  {.v = signalplaying } },
+    { 0,    XF86_AudioStop,         spawn,  {.v = signalplaying } },
 };
 
 /*{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },

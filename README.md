@@ -1,10 +1,8 @@
-# dwm - forked
+# wdwm - my go-to dwm build
 
 dwm is an extremely fast, small, and dynamic window manager for X, but it's better when patched.
 
 Check `Patches` file for applied patches.
-
-Use `patcher.sh` script which will assist you in setting up from scratch faster.
 
 
 ### Configuration
