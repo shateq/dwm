@@ -1,3 +1,5 @@
+patches/
+
 *.o
 *.orig
 *.rej
