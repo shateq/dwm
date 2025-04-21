@@ -92,10 +92,19 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *roficmd[]  = { "rofi", "-show", "drun", NULL };
-static const char *termcmd[]  = { TERMINAL, "--working-directory", "./", NULL };
+static const char *termcmd[]  = { TERMINAL, "--working-directory", "/home", NULL };
 
-static const char *signalvolume[] = { "pkill", "-RTMIN+5", STATUSBAR }
-static const char *signalplaying[] = { "pkill", "-RTMIN+6", STATUSBAR }
+/*#static const char *signalvolume[] = { "kill", "-39", "$pidof(dwmblocks)" };
+static const char *signalplaying[] = { "kill", "-40", "$pidof(dwmblocks)" };
+#include <X11/XF86keysym.h>
+{ 0,    XF86XK_AudioLowerVolume,  spawn,  {.v = signalvolume } },
+{ 0,    XF86XK_AudioRaiseVolume,  spawn,  {.v = signalvolume } },
+{ 0,    XF86XK_AudioMute,         spawn,  {.v = signalvolume } },
+{ 0,    XF86XK_AudioPlay,         spawn,  {.v = signalplaying } },
+{ 0,    XF86XK_AudioPause,        spawn,  {.v = signalplaying } },
+{ 0,    XF86XK_AudioStop,         spawn,  {.v = signalplaying } },
+it shall not be here as dwm grabs the keys preventing key conflicts, sxhkd wont work
+*/
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -117,9 +126,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[4]} },
+	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY|ShiftMask,             XK_g,      winview,        {0} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
@@ -139,12 +148,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_BackSpace,      quit,           {0} },
-    { 0,    XF86_AudioLowerVolume,  spawn,  {.v = signalvolume } },
-    { 0,    XF86_AudioRaiseVolume,  spawn,  {.v = signalvolume } },
-    { 0,    XF86_AudioMute,         spawn,  {.v = signalvolume } },
-    { 0,    XF86_AudioPlay,         spawn,  {.v = signalplaying } },
-    { 0,    XF86_AudioPause,        spawn,  {.v = signalplaying } },
-    { 0,    XF86_AudioStop,         spawn,  {.v = signalplaying } },
 };
 
 /*{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
@@ -172,5 +175,7 @@ static const Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
     { ClkWinTitle,          0,              Button4,        viewprev,       {0} },
     { ClkWinTitle,          0,              Button5,        viewnext,       {0} },
+    { ClkWinTitle,          MODKEY,         Button4,        focusstack, {.i = INC(-1) } },
+    { ClkWinTitle,          MODKEY,         Button5,        focusstack, {.i = INC(+1) } },
 };
 
